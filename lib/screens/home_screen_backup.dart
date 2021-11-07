@@ -1,15 +1,15 @@
-import 'package:family_care_app/ui/login_ui.dart';
-import 'package:family_care_app/ui/new_user_ui.dart';
+import 'package:family_care_app/screens/login_screen.dart';
+import 'package:family_care_app/screens/new_user_screen.dart';
 import 'package:flutter/material.dart';
 
-class HomeUI extends StatefulWidget {
-  const HomeUI({Key? key}) : super(key: key);
+class HomeScreenBackup extends StatefulWidget {
+  const HomeScreenBackup({Key? key}) : super(key: key);
 
   @override
-  _HomeUIState createState() => _HomeUIState();
+  _HomeScreenBackupState createState() => _HomeScreenBackupState();
 }
 
-class _HomeUIState extends State<HomeUI> {
+class _HomeScreenBackupState extends State<HomeScreenBackup> {
   @override
   Widget build(BuildContext context) {
     const _buttonTextStyle = TextStyle(fontSize: 20, color: Colors.black87);
@@ -61,7 +61,7 @@ class _HomeUIState extends State<HomeUI> {
                               onPressed: () => Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => NewUserUI())),
+                                      builder: (context) => NewUserScreen())),
                               child: const Text('New User'),
                             ),
                           ),
@@ -101,7 +101,7 @@ class _HomeUIState extends State<HomeUI> {
                               onPressed: () => Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => LoginUI())),
+                                      builder: (context) => LoginScreen())),
                               child: const Text('Login'),
                             ),
                           ),

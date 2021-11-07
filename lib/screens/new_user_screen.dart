@@ -1,7 +1,8 @@
+import 'package:family_care_app/util/constants.dart';
 import 'package:flutter/material.dart';
 
-class NewUserUI extends StatelessWidget {
-  const NewUserUI({Key? key}) : super(key: key);
+class NewUserScreen extends StatelessWidget {
+  const NewUserScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -14,9 +15,9 @@ class NewUserUI extends StatelessWidget {
           "New User",
           style: TextStyle(color: Colors.white),
         ),
-        backgroundColor: Colors.amberAccent,
+        backgroundColor: kScaffoldBackgroundColor,
       ),
-      backgroundColor: Colors.pinkAccent,
+      backgroundColor: kScaffoldBackgroundColor,
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: ListView(
@@ -93,7 +94,7 @@ class NewUserUI extends StatelessWidget {
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
                       textStyle: const TextStyle(fontSize: 20),
-                      primary: Colors.red),
+                      primary: kButtonColor),
                   onPressed: () => Navigator.pop(context),
                   child: const Text('Cancel'),
                 )
