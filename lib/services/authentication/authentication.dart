@@ -1,3 +1,4 @@
+import 'package:family_care_app/exception/authentication_exception.dart';
 import 'package:family_care_app/services/authentication/auth_input_data.dart';
 import 'package:family_care_app/services/authentication/auth_output_data.dart';
 import 'package:family_care_app/util/constants.dart';
@@ -18,6 +19,6 @@ class AuthenticationService {
       return AuthOutputData.fromJson(json.decode(response.body));
     }
 
-    throw Exception('Network failed to authentication');
+    throw AuthenticationException();
   }
 }
