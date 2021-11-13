@@ -43,7 +43,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
       _storageAuthOutputData.save(authOutputData);
 
-      Navigator.pop(context);
+      Navigator.pop(context, true);
     } on AuthenticationException catch(e) {
       log(e.message());
       InstantMessage.error(context, e.message());

@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:family_care_app/services/authentication/auth_output_data.dart';
 import 'package:family_care_app/util/constants.dart';
@@ -30,6 +29,23 @@ class StorageAuthOutputData {
         : List.empty();
 
     return AuthOutputData(username, token, permissions);
+  }
+
+  Future<bool> isUserLogged() async {
+    final storage = new FlutterSecureStorage();
+
+    final String username = await storage.read(key: usernameKey()) ?? '';
+    final String token = await storage.read(key: tokenKey()) ?? '';
+
+    return username != '' && token != '';
+  }
+
+  Future<void> reset() async {
+    final storage = new FlutterSecureStorage();
+
+    await storage.delete(key: usernameKey());
+    await storage.delete(key: tokenKey());
+    await storage.delete(key: permissionsKey());
   }
 
   String permissionsKey() => kStorageKeyAuthOutput + '_permissions';
