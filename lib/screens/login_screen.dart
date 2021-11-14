@@ -1,15 +1,13 @@
+import 'package:flutter/material.dart';
 import 'dart:developer';
-
 import 'package:family_care_app/components/instant_message.dart';
 import 'package:family_care_app/components/progress_indicator_circle.dart';
 import 'package:family_care_app/exception/authentication_exception.dart';
-import 'package:family_care_app/services/authentication/auth_input_data.dart';
-import 'package:family_care_app/services/authentication/auth_output_data.dart';
-import 'package:family_care_app/services/authentication/authentication.dart';
-import 'package:family_care_app/services/storage/storage_auth_out_data.dart';
+import 'package:family_care_app/services/authentication/authentication_service.dart';
+import 'package:family_care_app/services/authentication/signin_input_data.dart';
+import 'package:family_care_app/services/authentication/signin_output_data.dart';
+import 'package:family_care_app/services/storage/storage_service.dart';
 import 'package:family_care_app/util/constants.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -23,8 +21,8 @@ class _LoginScreenState extends State<LoginScreen> {
   final AuthenticationService _authenticationService = AuthenticationService();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final StorageAuthOutputData _storageAuthOutputData =
-      new StorageAuthOutputData();
+  final StorageService _storageAuthOutputData =
+      new StorageService();
   bool _processing = false;
 
   void _authenticate(BuildContext context) async {
@@ -33,13 +31,13 @@ class _LoginScreenState extends State<LoginScreen> {
     });
 
     try {
-      final AuthInputData inputData =
-          AuthInputData(_emailController.text, _passwordController.text);
+      final SigninInputData inputData =
+          SigninInputData(_emailController.text, _passwordController.text);
 
-      AuthOutputData authOutputData =
+      SigninOutputData authOutputData =
           await _authenticationService.authenticate(inputData);
 
-      InstantMessage.info(context, 'Welcome ${authOutputData.username}');
+      InstantMessage.info(context, 'Welcome ${authOutputData.name}');
 
       _storageAuthOutputData.save(authOutputData);
 
@@ -47,6 +45,8 @@ class _LoginScreenState extends State<LoginScreen> {
     } on AuthenticationException catch(e) {
       log(e.message());
       InstantMessage.error(context, e.message());
+    } catch (e) {
+      InstantMessage.error(context, e.toString());
     } finally {
       setState(() {
         _processing = false;

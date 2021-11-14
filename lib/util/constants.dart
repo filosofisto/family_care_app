@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-const kAuthUri = 'http://10.0.2.2:8081/auth/signin';
+const kSigninUri = 'http://10.0.2.2:8081/auth/signin';
+const kSignupUri = 'http://10.0.2.2:8081/auth/signup';
 const kHTTPStatusOk = 200;
 const kStorageKeyAuthOutput = 'AuthOutput';
 

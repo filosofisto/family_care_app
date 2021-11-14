@@ -24,7 +24,7 @@ class InstantMessage {
         ),
       ),
       duration: const Duration(milliseconds: 4000),
-      width: MediaQuery.of(context).size.width * 0.9,
+      width: MediaQuery.of(context).size.width * 0.95,
       backgroundColor: Colors.redAccent,
       // Width of the SnackBar.
       padding: const EdgeInsets.symmetric(

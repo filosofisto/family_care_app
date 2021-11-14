@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:family_care_app/components/bottom_button.dart';
 import 'package:family_care_app/components/default_button.dart';
 import 'package:family_care_app/components/icon_content.dart';
@@ -6,7 +8,10 @@ import 'package:family_care_app/components/reusable_card.dart';
 import 'package:family_care_app/components/round_icon_button.dart';
 import 'package:family_care_app/screens/login_screen.dart';
 import 'package:family_care_app/screens/new_user_screen.dart';
-import 'package:family_care_app/services/storage/storage_auth_out_data.dart';
+import 'package:family_care_app/services/authentication/authentication_service.dart';
+import 'package:family_care_app/services/authentication/signin_input_data.dart';
+import 'package:family_care_app/services/authentication/signin_output_data.dart';
+import 'package:family_care_app/services/storage/storage_service.dart';
 import 'package:family_care_app/util/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -25,9 +30,9 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
 
-    StorageAuthOutputData()
-        .isUserLogged()
-        .then((value) => _isUserLogged = value);
+    StorageService().isUserLogged().then((value) => setState(() {
+          _isUserLogged = value;
+        }));
   }
 
   @override
@@ -50,8 +55,17 @@ class _HomeScreenState extends State<HomeScreen> {
               children: <Widget>[
                 Expanded(
                     child: DefaultButton(
-                  onTap: () => Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => NewUserScreen())),
+                  onTap: () {
+                    var future = Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => NewUserScreen()));
+                    future.then((value) {
+                      setState(() {
+                        _isUserLogged = value;
+                      });
+                    });
+                  },
                   iconData: FontAwesomeIcons.userPlus,
                   label: 'NEW USER',
                 )),
@@ -86,12 +100,17 @@ class _HomeScreenState extends State<HomeScreen> {
                 Expanded(
                     child: DefaultButton(
                   onTap: () => setState(() {
-                    StorageAuthOutputData().reset();
+                    StorageService().reset();
                     setState(() {
                       _isUserLogged = false;
                     });
-                    InstantMessage.infoIcon(context, 'We already miss you!',
-                        Icon(FontAwesomeIcons.sadCry, color: Colors.yellowAccent,));
+                    InstantMessage.infoIcon(
+                        context,
+                        'We already miss you!',
+                        Icon(
+                          FontAwesomeIcons.sadCry,
+                          color: Colors.yellowAccent,
+                        ));
                   }),
                   iconData: FontAwesomeIcons.signOutAlt,
                   label: 'LOGOUT',
