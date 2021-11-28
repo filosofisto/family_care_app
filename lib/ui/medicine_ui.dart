@@ -1,13 +1,16 @@
 import 'dart:convert';
 
 import 'package:family_care_app/model/medicine.dart';
+import 'package:family_care_app/screens/medicine_edit_screen.dart';
 import 'package:family_care_app/util/constants.dart';
 import 'package:flutter/material.dart';
 
 class MedicineUI extends StatelessWidget {
-  const MedicineUI(this.medicine);
+  const MedicineUI(this.medicine, this.onTap);
 
   final Medicine medicine;
+
+  final GestureTapCallback onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -22,6 +25,7 @@ class MedicineUI extends StatelessWidget {
           medicine.name,
           style: TextStyle(fontSize: 24.0),
         ),
+        onTap: onTap,
       ),
     );
   }

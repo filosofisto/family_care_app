@@ -6,6 +6,7 @@ import 'package:family_care_app/components/progress_indicator_circle.dart';
 import 'package:family_care_app/exception/network_exception.dart';
 import 'package:family_care_app/model/medicine.dart';
 import 'package:family_care_app/screens/medicine_add_screen.dart';
+import 'package:family_care_app/screens/medicine_edit_screen.dart';
 import 'package:family_care_app/services/medicine/medicine_output_data.dart';
 import 'package:family_care_app/services/medicine/medicine_service.dart';
 import 'package:family_care_app/ui/medicine_ui.dart';
@@ -20,11 +21,19 @@ class MedicineListScreen extends StatefulWidget {
 }
 
 class _MedicineListScreenState extends State<MedicineListScreen> {
-
   final MedicineService _medicineService = MedicineService();
 
   Future<MedicineOutputData> listMedicines() async {
     return _medicineService.list();
+  }
+
+  void edit(Medicine medicine) {
+    var future = Navigator.push(context,
+        MaterialPageRoute(builder: (context) => MedicineEdit(medicine)));
+
+    future.then((value) {
+      setState(() {});
+    });
   }
 
   @override
@@ -61,7 +70,8 @@ class _MedicineListScreenState extends State<MedicineListScreen> {
               }
 
               return ListView.builder(
-                  itemBuilder: (context, index) => MedicineUI(medicines[index]),
+                  itemBuilder: (context, index) => MedicineUI(
+                      medicines[index], () => edit(medicines[index])),
                   itemCount: medicines.length);
           }
 
@@ -70,11 +80,13 @@ class _MedicineListScreenState extends State<MedicineListScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) => MedicineAdd(),
-            ),
-          ).then((value) => setState(() => {}));
+          Navigator.of(context)
+              .push(
+                MaterialPageRoute(
+                  builder: (context) => MedicineAdd(),
+                ),
+              )
+              .then((value) => setState(() => {}));
         },
         child: Icon(Icons.add),
       ),
