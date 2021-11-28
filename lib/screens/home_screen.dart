@@ -7,6 +7,7 @@ import 'package:family_care_app/components/instant_message.dart';
 import 'package:family_care_app/components/reusable_card.dart';
 import 'package:family_care_app/components/round_icon_button.dart';
 import 'package:family_care_app/screens/login_screen.dart';
+import 'package:family_care_app/screens/medicine_list_screen.dart';
 import 'package:family_care_app/screens/new_user_screen.dart';
 import 'package:family_care_app/services/authentication/authentication_service.dart';
 import 'package:family_care_app/services/authentication/signin_input_data.dart';
@@ -93,7 +94,8 @@ class _HomeScreenState extends State<HomeScreen> {
               children: <Widget>[
                 Expanded(
                     child: DefaultButton(
-                  onTap: () => {},
+                  onTap: () => Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => MedicineListScreen())),
                   iconData: FontAwesomeIcons.pills,
                   label: 'MY MEDICINES',
                 )),

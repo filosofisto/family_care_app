@@ -9,37 +9,43 @@ class StorageService {
     final storage = new FlutterSecureStorage();
 
     await storage.write(
-        key: emailKey(),
+        key: _emailKey(),
         value: authOutputData.email);
     await storage.write(
-        key: nameKey(),
+        key: _nameKey(),
         value: authOutputData.name);
     await storage.write(
-        key: tokenKey(),
+        key: _tokenKey(),
         value: authOutputData.token);
     await storage.write(
-        key: permissionsKey(),
+        key: _permissionsKey(),
         value: authOutputData.permissions.join(','));
   }
 
   Future<SigninOutputData> read() async {
     final storage = new FlutterSecureStorage();
 
-    final String email = await storage.read(key: emailKey()) ?? '';
-    final String name = await storage.read(key: nameKey()) ?? '';
-    final String token = await storage.read(key: tokenKey()) ?? '';
-    final List<String> permissions = await storage.containsKey(key: permissionsKey())
-        ? (await storage.read(key: permissionsKey()))!.split(',')
+    final String email = await storage.read(key: _emailKey()) ?? '';
+    final String name = await storage.read(key: _nameKey()) ?? '';
+    final String token = await storage.read(key: _tokenKey()) ?? '';
+    final List<String> permissions = await storage.containsKey(key: _permissionsKey())
+        ? (await storage.read(key: _permissionsKey()))!.split(',')
         : List.empty();
 
     return SigninOutputData(email, name, token, permissions);
   }
 
+  Future<String> token() async {
+    final storage = new FlutterSecureStorage();
+
+    return await storage.read(key: _tokenKey()) ?? '';
+  }
+
   Future<bool> isUserLogged() async {
     final storage = new FlutterSecureStorage();
 
-    final String username = await storage.read(key: emailKey()) ?? '';
-    final String token = await storage.read(key: tokenKey()) ?? '';
+    final String username = await storage.read(key: _emailKey()) ?? '';
+    final String token = await storage.read(key: _tokenKey()) ?? '';
 
     return username != '' && token != '';
   }
@@ -47,17 +53,17 @@ class StorageService {
   Future<void> reset() async {
     final storage = new FlutterSecureStorage();
 
-    await storage.delete(key: emailKey());
-    await storage.delete(key: nameKey());
-    await storage.delete(key: tokenKey());
-    await storage.delete(key: permissionsKey());
+    await storage.delete(key: _emailKey());
+    await storage.delete(key: _nameKey());
+    await storage.delete(key: _tokenKey());
+    await storage.delete(key: _permissionsKey());
   }
 
-  String permissionsKey() => kStorageKeyAuthOutput + '_permissions';
+  String _permissionsKey() => kStorageKeyAuthOutput + '_permissions';
 
-  String tokenKey() => kStorageKeyAuthOutput + '_token';
+  String _tokenKey() => kStorageKeyAuthOutput + '_token';
 
-  String emailKey() => kStorageKeyAuthOutput + '_email';
+  String _emailKey() => kStorageKeyAuthOutput + '_email';
 
-  String nameKey() => kStorageKeyAuthOutput + '_name';
+  String _nameKey() => kStorageKeyAuthOutput + '_name';
 }

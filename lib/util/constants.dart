@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
-const kSigninUri = 'http://10.0.2.2:8081/auth/signin';
-const kSignupUri = 'http://10.0.2.2:8081/auth/signup';
+const kBaseUri          = 'http://10.0.2.2';
+const kSigninUri        = '$kBaseUri:8081/auth/signin';
+const kSignupUri        = '$kBaseUri:8081/auth/signup';
+const kMedicineListUri  = '$kBaseUri:8082/medicine/list';
 const kHTTPStatusOk = 200;
 const kStorageKeyAuthOutput = 'AuthOutput';
 
