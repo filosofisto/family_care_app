@@ -41,6 +41,12 @@ class StorageService {
     return await storage.read(key: _tokenKey()) ?? '';
   }
 
+  Future<String> email() async {
+    final storage = new FlutterSecureStorage();
+
+    return await storage.read(key: _emailKey()) ?? '';
+  }
+
   Future<bool> isUserLogged() async {
     final storage = new FlutterSecureStorage();
 

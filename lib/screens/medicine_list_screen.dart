@@ -5,6 +5,7 @@ import 'package:family_care_app/components/instant_message.dart';
 import 'package:family_care_app/components/progress_indicator_circle.dart';
 import 'package:family_care_app/exception/network_exception.dart';
 import 'package:family_care_app/model/medicine.dart';
+import 'package:family_care_app/screens/medicine_add_screen.dart';
 import 'package:family_care_app/services/medicine/medicine_output_data.dart';
 import 'package:family_care_app/services/medicine/medicine_service.dart';
 import 'package:family_care_app/ui/medicine_ui.dart';
@@ -66,6 +67,16 @@ class _MedicineListScreenState extends State<MedicineListScreen> {
 
           return CentralErrorMessage('Unknow error');
         },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => MedicineAdd(),
+            ),
+          ).then((value) => setState(() => {}));
+        },
+        child: Icon(Icons.add),
       ),
     );
   }

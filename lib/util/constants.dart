@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 
-const kBaseUri          = 'http://10.0.2.2';
-const kSigninUri        = '$kBaseUri:8081/auth/signin';
-const kSignupUri        = '$kBaseUri:8081/auth/signup';
-const kMedicineListUri  = '$kBaseUri:8082/medicine/list';
-const kHTTPStatusOk = 200;
+const kBaseUri              = 'http://10.0.2.2';
+const kSigninUri            = '$kBaseUri:8081/auth/signin';
+const kSignupUri            = '$kBaseUri:8081/auth/signup';
+const kMedicineListUri      = '$kBaseUri:8082/medicine/list';
+const kMedicineCreateUri    = '$kBaseUri:8082/medicine/create';
+const kHTTPStatusOk         = 200;
+const kHTTPStatusCreated    = 201;
 const kStorageKeyAuthOutput = 'AuthOutput';
 
 const kActiveCardColor = Color(0xFF1D1E33);
